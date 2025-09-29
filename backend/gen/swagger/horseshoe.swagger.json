@@ -1,0 +1,1285 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Sattle API",
+    "version": "1.0"
+  },
+  "tags": [
+    {
+      "name": "HorseshoeService"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/appointments": {
+      "get": {
+        "operationId": "HorseshoeService_ListAppointments",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/horseshoeListAppointmentsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "customerId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "HorseshoeService"
+        ]
+      },
+      "post": {
+        "operationId": "HorseshoeService_CreateAppointment",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/horseshoeAppointmentResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/horseshoeCreateAppointmentRequest"
+            }
+          }
+        ],
+        "tags": [
+          "HorseshoeService"
+        ]
+      }
+    },
+    "/v1/appointments/{id}": {
+      "get": {
+        "operationId": "HorseshoeService_GetAppointment",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/horseshoeGetAppointmentResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "HorseshoeService"
+        ]
+      },
+      "delete": {
+        "operationId": "HorseshoeService_DeleteAppointment",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "HorseshoeService"
+        ]
+      },
+      "put": {
+        "operationId": "HorseshoeService_UpdateAppointment",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/horseshoeAppointmentResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Required to identify the appointment to update",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/HorseshoeServiceUpdateAppointmentBody"
+            }
+          }
+        ],
+        "tags": [
+          "HorseshoeService"
+        ]
+      }
+    },
+    "/v1/auth/login": {
+      "post": {
+        "operationId": "HorseshoeService_Login",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/horseshoeLoginResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/horseshoeLoginRequest"
+            }
+          }
+        ],
+        "tags": [
+          "HorseshoeService"
+        ]
+      }
+    },
+    "/v1/customers": {
+      "get": {
+        "operationId": "HorseshoeService_ListCustomers",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/horseshoeListCustomersResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "HorseshoeService"
+        ]
+      },
+      "post": {
+        "operationId": "HorseshoeService_CreateOrUpdateCustomer",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/horseshoeCustomerResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/horseshoeCreateOrUpdateCustomerRequest"
+            }
+          }
+        ],
+        "tags": [
+          "HorseshoeService"
+        ]
+      }
+    },
+    "/v1/customers/search": {
+      "get": {
+        "operationId": "HorseshoeService_SearchCustomers",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/horseshoeSearchCustomersResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "HorseshoeService"
+        ]
+      }
+    },
+    "/v1/customers/{customerId}/appointments": {
+      "get": {
+        "operationId": "HorseshoeService_ListAppointmentsForCustomer",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/horseshoeListAppointmentsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "HorseshoeService"
+        ]
+      }
+    },
+    "/v1/customers/{uuid}": {
+      "get": {
+        "operationId": "HorseshoeService_GetCustomer",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/horseshoeGetCustomerResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "HorseshoeService"
+        ]
+      },
+      "delete": {
+        "operationId": "HorseshoeService_DeleteCustomer",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "HorseshoeService"
+        ]
+      }
+    },
+    "/v1/health": {
+      "get": {
+        "operationId": "HorseshoeService_HealthCheck",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "HorseshoeService"
+        ]
+      }
+    },
+    "/v1/invoices": {
+      "get": {
+        "operationId": "HorseshoeService_SearchInvoices",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/horseshoeListInvoicesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "invoiceNumber",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "HorseshoeService"
+        ]
+      },
+      "post": {
+        "operationId": "HorseshoeService_CreateInvoice",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/horseshoeInvoiceResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/horseshoeCreateInvoiceRequest"
+            }
+          }
+        ],
+        "tags": [
+          "HorseshoeService"
+        ]
+      }
+    },
+    "/v1/invoices/{invoiceId}/download": {
+      "get": {
+        "operationId": "HorseshoeService_DownloadInvoicePDF",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/horseshoeDownloadInvoicePDFResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "invoiceId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "HorseshoeService"
+        ]
+      }
+    },
+    "/v1/invoices/{invoiceId}/pay": {
+      "post": {
+        "operationId": "HorseshoeService_MarkInvoiceAsPaid",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/horseshoeInvoiceResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "invoiceId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/HorseshoeServiceMarkInvoiceAsPaidBody"
+            }
+          }
+        ],
+        "tags": [
+          "HorseshoeService"
+        ]
+      }
+    },
+    "/v1/invoices/{invoiceId}/send": {
+      "post": {
+        "operationId": "HorseshoeService_SendInvoiceEmail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/horseshoeSendInvoiceEmailResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "invoiceId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/HorseshoeServiceSendInvoiceEmailBody"
+            }
+          }
+        ],
+        "tags": [
+          "HorseshoeService"
+        ]
+      }
+    },
+    "/v1/invoices/{invoiceId}/xrechnung": {
+      "get": {
+        "operationId": "HorseshoeService_DownloadInvoiceXRechnung",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/horseshoeDownloadInvoiceXRechnungResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "invoiceId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "HorseshoeService"
+        ]
+      }
+    },
+    "/v1/invoices/{uuid}": {
+      "get": {
+        "operationId": "HorseshoeService_GetInvoice",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/horseshoeInvoiceResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "HorseshoeService"
+        ]
+      }
+    },
+    "/v1/settings": {
+      "get": {
+        "operationId": "HorseshoeService_ListSettings",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/horseshoeSettingsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "HorseshoeService"
+        ]
+      }
+    },
+    "/v1/settings/{key}": {
+      "get": {
+        "operationId": "HorseshoeService_GetSetting",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/horseshoeSetting"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "HorseshoeService"
+        ]
+      },
+      "delete": {
+        "operationId": "HorseshoeService_DeleteSetting",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "HorseshoeService"
+        ]
+      },
+      "put": {
+        "operationId": "HorseshoeService_UpdateSetting",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/horseshoeSetting"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/HorseshoeServiceUpdateSettingBody"
+            }
+          }
+        ],
+        "tags": [
+          "HorseshoeService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "HorseshoeServiceMarkInvoiceAsPaidBody": {
+      "type": "object",
+      "properties": {
+        "paidDate": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "HorseshoeServiceSendInvoiceEmailBody": {
+      "type": "object"
+    },
+    "HorseshoeServiceUpdateAppointmentBody": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "customerId": {
+          "type": "string"
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "note": {
+          "type": "string"
+        }
+      }
+    },
+    "HorseshoeServiceUpdateSettingBody": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "horseshoeAppointment": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "customerId": {
+          "type": "string"
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "note": {
+          "type": "string"
+        }
+      },
+      "title": "--- Appointment messages ---"
+    },
+    "horseshoeAppointmentResponse": {
+      "type": "object",
+      "properties": {
+        "appointment": {
+          "$ref": "#/definitions/horseshoeAppointment"
+        }
+      }
+    },
+    "horseshoeCreateAppointmentRequest": {
+      "type": "object",
+      "properties": {
+        "customerId": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "note": {
+          "type": "string"
+        }
+      }
+    },
+    "horseshoeCreateInvoiceRequest": {
+      "type": "object",
+      "properties": {
+        "customerId": {
+          "type": "string"
+        },
+        "workUnits": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/horseshoeWorkUnit"
+          }
+        },
+        "workDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "paidDate": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "horseshoeCreateOrUpdateCustomerRequest": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "type": "string",
+          "title": "if empty, create new; else update"
+        },
+        "name": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "street": {
+          "type": "string"
+        },
+        "postalCode": {
+          "type": "string"
+        },
+        "phoneNumber": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "horses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "horseshoeCustomer": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "street": {
+          "type": "string"
+        },
+        "postalCode": {
+          "type": "string"
+        },
+        "phoneNumber": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "horses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "--- Customer messages ---"
+    },
+    "horseshoeCustomerResponse": {
+      "type": "object",
+      "properties": {
+        "customer": {
+          "$ref": "#/definitions/horseshoeCustomer"
+        }
+      }
+    },
+    "horseshoeDownloadInvoicePDFResponse": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "horseshoeDownloadInvoiceXRechnungResponse": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "horseshoeGetAppointmentResponse": {
+      "type": "object",
+      "properties": {
+        "appointment": {
+          "$ref": "#/definitions/horseshoeAppointment"
+        }
+      }
+    },
+    "horseshoeGetCustomerResponse": {
+      "type": "object",
+      "properties": {
+        "customer": {
+          "$ref": "#/definitions/horseshoeCustomer"
+        }
+      }
+    },
+    "horseshoeInvoice": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "customerId": {
+          "type": "string"
+        },
+        "workUnits": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/horseshoeWorkUnit"
+          }
+        },
+        "workDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "paidDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "invoiceNumber": {
+          "type": "string"
+        }
+      }
+    },
+    "horseshoeInvoiceResponse": {
+      "type": "object",
+      "properties": {
+        "invoice": {
+          "$ref": "#/definitions/horseshoeInvoice"
+        }
+      }
+    },
+    "horseshoeListAppointmentsResponse": {
+      "type": "object",
+      "properties": {
+        "appointments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/horseshoeAppointment"
+          }
+        }
+      }
+    },
+    "horseshoeListCustomersResponse": {
+      "type": "object",
+      "properties": {
+        "customers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/horseshoeCustomer"
+          }
+        }
+      }
+    },
+    "horseshoeListInvoicesResponse": {
+      "type": "object",
+      "properties": {
+        "invoices": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/horseshoeInvoice"
+          }
+        }
+      }
+    },
+    "horseshoeLoginRequest": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "title": "--- Auth messages ---"
+    },
+    "horseshoeLoginResponse": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        }
+      }
+    },
+    "horseshoeSearchCustomersResponse": {
+      "type": "object",
+      "properties": {
+        "nameMatches": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/horseshoeCustomer"
+          }
+        },
+        "phoneMatches": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/horseshoeCustomer"
+          }
+        },
+        "emailMatches": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/horseshoeCustomer"
+          }
+        },
+        "addressMatches": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/horseshoeCustomer"
+          }
+        }
+      }
+    },
+    "horseshoeSendInvoiceEmailResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        }
+      }
+    },
+    "horseshoeSetting": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "horseshoeSettingsResponse": {
+      "type": "object",
+      "properties": {
+        "settings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/horseshoeSetting"
+          }
+        }
+      }
+    },
+    "horseshoeWorkUnit": {
+      "type": "object",
+      "properties": {
+        "workType": {
+          "type": "string"
+        },
+        "basePrice": {
+          "type": "number",
+          "format": "double"
+        },
+        "count": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "bundleId": {
+          "type": "string"
+        },
+        "horseName": {
+          "type": "string"
+        }
+      },
+      "title": "--- Invoice messages ---"
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "BearerAuth": {
+      "type": "apiKey",
+      "description": "JWT token: Bearer {your_token}",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "BearerAuth": []
+    }
+  ]
+}
