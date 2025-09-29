@@ -1,0 +1,101 @@
+name: Build Backend
+
+on:
+  push:
+    paths:
+      - "sattle/**"
+      - ".github/workflows/build-backend.yml"
+  pull_request:
+    paths:
+      - "sattle/**"
+  workflow_dispatch:
+
+jobs:
+  build-backend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          submodules: "true"
+
+      - name: Cache Go modules
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cache/go-build
+            ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+
+      - name: Cache Go tools
+        uses: actions/cache@v3
+        with:
+          path: ~/go/bin
+          key: ${{ runner.os }}-go-tools-${{ hashFiles('**/go.mod', '**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-tools-
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.24.5"
+
+      - name: Set up Protobuf
+        uses: arduino/setup-protoc@v2
+        with:
+          version: "24.0"
+
+      - name: Install codegen tools
+        run: |
+          go install github.com/sqlc-dev/sqlc/cmd/sqlc@latest
+          go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+          go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
+          go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway@latest
+          go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2@latest
+
+      - name: Generate Go code and OpenAPI
+        run: make generate
+
+      - name: Generate SQLC models
+        working-directory: sattle
+        run: |
+          sqlc generate
+
+      - name: Build Go backend binary (static)
+        working-directory: sattle
+        run: |
+          CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o horsa-backend
+
+      - name: Log in to Docker registry
+        uses: docker/login-action@v3
+        with:
+          registry: docker.illegalesachen.download
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build Docker image (backend)
+        uses: docker/build-push-action@v6
+        with:
+          context: ./sattle
+          file: ./sattle/dockerfile
+          push: false
+          tags: |
+            horsa-backend:${{ github.sha }}
+            horsa-backend:latest
+          provenance: false
+          sbom: false
+
+      - name: Save Docker image to tar (backend)
+        run: |
+          docker save horsa-backend:${{ github.sha }} -o horsa-backend-${{ github.sha }}.tar
+
+      - name: Upload Docker image artifact (backend)
+        uses: actions/upload-artifact@v4
+        with:
+          name: horsa-backend-${{ github.sha }}
+          path: horsa-backend-${{ github.sha }}.tar
+          if-no-files-found: error
+          retention-days: 7

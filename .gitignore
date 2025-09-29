@@ -1,0 +1,13 @@
+backend/proto/
+backend/gen/swagger/api.swagger.json
+internal/db/
+
+frontend/src/api-client/
+
+.env
+
+*.swp
+*.DS_Store
+*.log
+*.tmp
+.vscode/

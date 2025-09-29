@@ -1,0 +1,6 @@
+[submodule "sattle/googleapis"]
+	path = sattle/googleapis
+	url = https://github.com/googleapis/googleapis.git
+[submodule "sattle/grpc-gateway"]
+	path = sattle/grpc-gateway
+	url = https://github.com/grpc-ecosystem/grpc-gateway.git
